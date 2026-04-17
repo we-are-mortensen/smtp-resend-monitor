@@ -33,11 +33,11 @@ The package type is `wordpress-muplugin`, so Composer places it automatically in
 
 Add these variables to your `.env` file (Bedrock) or define them in `wp-config.php`:
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `SMTP_MONITOR_RESEND_API_KEY` | **Yes** | — | Your Resend API key |
-| `SMTP_MONITOR_ALERT_TO` | No | `dev@mortensen.cat` | Alert recipient email |
-| `SMTP_MONITOR_ALERT_FROM` | No | `no-reply@mortensen.cat` | Alert sender email |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `SMTP_MONITOR_RESEND_API_KEY` | **Yes** | Your Resend API key |
+| `SMTP_MONITOR_ALERT_TO` | **Yes** | Alert recipient email |
+| `SMTP_MONITOR_ALERT_FROM` | **Yes** | Alert sender email (must be from a verified Resend domain) |
 
 ### Bedrock (.env)
 

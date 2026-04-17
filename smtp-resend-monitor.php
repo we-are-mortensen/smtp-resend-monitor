@@ -19,8 +19,6 @@ const COOLDOWN_SECONDS = 6 * HOUR_IN_SECONDS;
 const HEALTH_CHECK_INTERVAL = 'daily';
 const RESEND_API_URL = 'https://api.resend.com/emails';
 
-const DEFAULT_ALERT_TO = 'dev@mortensen.cat';
-const DEFAULT_ALERT_FROM = 'no-reply@mortensen.cat';
 
 /**
  * Get configuration value from constants or .env.
@@ -46,7 +44,9 @@ function get_config(string $key, string $default = ''): string
  */
 function is_configured(): bool
 {
-    return ! empty(get_config('SMTP_MONITOR_RESEND_API_KEY'));
+    return ! empty(get_config('SMTP_MONITOR_RESEND_API_KEY'))
+        && ! empty(get_config('SMTP_MONITOR_ALERT_TO'))
+        && ! empty(get_config('SMTP_MONITOR_ALERT_FROM'));
 }
 
 // Exit early if not configured — no errors, no warnings.
@@ -116,8 +116,8 @@ function send_alert(string $error_message, string $type): void
     }
 
     $api_key = get_config('SMTP_MONITOR_RESEND_API_KEY');
-    $to = get_config('SMTP_MONITOR_ALERT_TO', DEFAULT_ALERT_TO);
-    $from = get_config('SMTP_MONITOR_ALERT_FROM', DEFAULT_ALERT_FROM);
+    $to = get_config('SMTP_MONITOR_ALERT_TO');
+    $from = get_config('SMTP_MONITOR_ALERT_FROM');
 
     $site_name = get_bloginfo('name');
     $site_url = home_url();
