@@ -58,6 +58,11 @@ function is_configured(): bool
         && ! empty(get_config('SMTP_MONITOR_ALERT_FROM'));
 }
 
+// Only run in production.
+if (get_config('WP_ENV', 'production') !== 'production') {
+    return;
+}
+
 // Exit early if not configured — show admin notice with missing variables.
 if (! is_configured()) {
     add_action('admin_notices', __NAMESPACE__ . '\\show_missing_config_notice');
