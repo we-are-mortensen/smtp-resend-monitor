@@ -49,9 +49,35 @@ function is_configured(): bool
         && ! empty(get_config('SMTP_MONITOR_ALERT_FROM'));
 }
 
-// Exit early if not configured — no errors, no warnings.
+// Exit early if not configured — show admin notice with missing variables.
 if (! is_configured()) {
+    add_action('admin_notices', __NAMESPACE__ . '\\show_missing_config_notice');
     return;
+}
+
+/**
+ * Show admin notice listing missing configuration variables.
+ */
+function show_missing_config_notice(): void
+{
+    $missing = [];
+
+    if (empty(get_config('SMTP_MONITOR_RESEND_API_KEY'))) {
+        $missing[] = 'SMTP_MONITOR_RESEND_API_KEY';
+    }
+    if (empty(get_config('SMTP_MONITOR_ALERT_TO'))) {
+        $missing[] = 'SMTP_MONITOR_ALERT_TO';
+    }
+    if (empty(get_config('SMTP_MONITOR_ALERT_FROM'))) {
+        $missing[] = 'SMTP_MONITOR_ALERT_FROM';
+    }
+
+    $vars = implode('</code>, <code>', $missing);
+
+    printf(
+        '<div class="notice notice-warning"><p><strong>SMTP Resend Monitor:</strong> Missing required configuration: <code>%s</code>. Add them to your <code>.env</code> file or <code>wp-config.php</code>.</p></div>',
+        $vars
+    );
 }
 
 /**
