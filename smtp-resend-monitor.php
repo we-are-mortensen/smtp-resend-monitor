@@ -152,7 +152,8 @@ function send_alert(string $error_message, string $type): void
 
     $api_key = get_config('SMTP_MONITOR_RESEND_API_KEY');
     $to = get_config('SMTP_MONITOR_ALERT_TO');
-    $from = get_config('SMTP_MONITOR_ALERT_FROM');
+    $from_email = get_config('SMTP_MONITOR_ALERT_FROM');
+    $from = "SMTP Resend Monitor <{$from_email}>";
 
     $site_name = get_bloginfo('name');
     $site_url = home_url();
