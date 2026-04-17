@@ -1,0 +1,19 @@
+{
+  "name": "mortensen/smtp-resend-monitor",
+  "description": "WordPress mu-plugin that monitors SMTP failures and sends alerts via Resend HTTP API.",
+  "type": "wordpress-muplugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mortensen",
+      "email": "dev@mortensen.cat"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "composer/installers": "^2.0"
+  },
+  "extra": {
+    "installer-name": "smtp-resend-monitor"
+  }
+}
