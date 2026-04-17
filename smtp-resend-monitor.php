@@ -31,9 +31,18 @@ function get_config(string $key, string $default = ''): string
 
     if (function_exists('env')) {
         $value = env($key);
-        if ($value !== null) {
+        if ($value !== null && $value !== '') {
             return (string) $value;
         }
+    }
+
+    $env = getenv($key);
+    if ($env !== false && $env !== '') {
+        return $env;
+    }
+
+    if (isset($_ENV[$key]) && $_ENV[$key] !== '') {
+        return $_ENV[$key];
     }
 
     return $default;
